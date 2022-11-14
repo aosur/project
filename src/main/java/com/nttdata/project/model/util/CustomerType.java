@@ -1,2 +1,5 @@
-package com.nttdata.project.model.util;public enum CustomerType {
+package com.nttdata.project.model.util;
+
+public enum CustomerType {
+    PERSON, ENTERPRISE
 }

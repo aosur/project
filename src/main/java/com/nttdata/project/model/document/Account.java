@@ -1,7 +1,7 @@
-package com.nttdata.project.model.document.account;
+package com.nttdata.project.model.document;
 
-import com.nttdata.project.model.document.customer.Customer;
 import com.nttdata.project.model.util.AccountType;
+import com.nttdata.project.model.util.Movement;
 import com.nttdata.project.model.util.Person;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +27,5 @@ public class Account {
     private AccountType accountType;
     private List<Customer> owners;  // Titulares
     private List<Person> signatories;   // Firmantes
+    private List<Movement> movements;
 }
