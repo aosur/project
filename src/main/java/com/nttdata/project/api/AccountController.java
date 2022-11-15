@@ -29,4 +29,14 @@ public class AccountController {
     public Mono<Account> getById(@PathVariable("id") String id) {
         return accountService.findById(id);
     }
+
+    @PutMapping (path = "/{id}")
+    public Mono<Account> update(@PathVariable("id") String id, @RequestBody AccountRequest request) {
+        return accountService.update(id, request);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public Mono<Void> deleteById(@PathVariable("id") String id) {
+        return accountService.deleteById(id);
+    }
 }

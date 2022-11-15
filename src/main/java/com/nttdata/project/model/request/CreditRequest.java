@@ -3,10 +3,11 @@ package com.nttdata.project.model.request;
 import com.nttdata.project.model.document.Credit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
+@Setter
 public class CreditRequest {
 
-    private final Credit credit;
+    private Credit credit;
 }

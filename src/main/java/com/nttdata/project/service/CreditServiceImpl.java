@@ -1,7 +1,10 @@
 package com.nttdata.project.service;
 
+import com.nttdata.project.model.document.Account;
 import com.nttdata.project.model.document.Credit;
 import com.nttdata.project.model.repository.CreditRepository;
+import com.nttdata.project.model.request.AccountRequest;
+import com.nttdata.project.model.request.CreditRequest;
 import com.nttdata.project.model.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +39,18 @@ public class CreditServiceImpl implements CreditService {
     @Override
     public Mono<Boolean> existsById(String id) {
         return creditRepository.existsById(id);
+    }
+
+    @Override
+    public Mono<Void> deleteById(String id) {
+        return creditRepository.deleteById(id);
+    }
+
+    @Override
+    public Mono<Credit> update(String id, CreditRequest request) {
+        if (request.getCredit().getId() == null) {
+            throw new IllegalStateException("cannot save " + request);
+        }
+        return creditRepository.save(request.getCredit());
     }
 }

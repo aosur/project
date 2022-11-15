@@ -1,6 +1,8 @@
 package com.nttdata.project.api;
 
+import com.nttdata.project.model.document.Account;
 import com.nttdata.project.model.document.Credit;
+import com.nttdata.project.model.request.AccountRequest;
 import com.nttdata.project.model.request.CreditRequest;
 import com.nttdata.project.model.service.CreditService;
 import lombok.AllArgsConstructor;
@@ -28,6 +30,16 @@ public class CreditController {
     @GetMapping(path = "/{id}")
     public Mono<Credit> getById(@PathVariable("id") String id) {
         return creditService.findById(id);
+    }
+
+    @PutMapping (path = "/{id}")
+    public Mono<Credit> update(@PathVariable("id") String id, @RequestBody CreditRequest request) {
+        return creditService.update(id, request);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public Mono<Void> deleteById(@PathVariable("id") String id) {
+        return creditService.deleteById(id);
     }
 
 }

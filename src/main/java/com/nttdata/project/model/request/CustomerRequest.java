@@ -1,12 +1,12 @@
 package com.nttdata.project.model.request;
 
 import com.nttdata.project.model.document.Customer;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
+@Setter
 public class CustomerRequest {
 
-    private final Customer customer;
+    private Customer customer;
 }

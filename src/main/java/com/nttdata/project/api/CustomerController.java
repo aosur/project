@@ -1,6 +1,8 @@
 package com.nttdata.project.api;
 
+import com.nttdata.project.model.document.Account;
 import com.nttdata.project.model.document.Customer;
+import com.nttdata.project.model.request.AccountRequest;
 import com.nttdata.project.model.request.CustomerRequest;
 import com.nttdata.project.model.service.CustomerService;
 import lombok.AllArgsConstructor;
@@ -28,5 +30,15 @@ public class CustomerController {
     @GetMapping(path = "/{id}")
     public Mono<Customer> getById(@PathVariable("id") String id) {
         return customerService.findById(id);
+    }
+
+    @PutMapping (path = "/{id}")
+    public Mono<Customer> update(@PathVariable("id") String id, @RequestBody CustomerRequest request) {
+        return customerService.update(id, request);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public Mono<Void> deleteById(@PathVariable("id") String id) {
+        return customerService.deleteById(id);
     }
 }

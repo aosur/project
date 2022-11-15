@@ -3,10 +3,11 @@ package com.nttdata.project.model.request;
 import com.nttdata.project.model.document.Account;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
+@Setter
 public class AccountRequest {
 
-    private final Account account;
+    private Account account;
 }

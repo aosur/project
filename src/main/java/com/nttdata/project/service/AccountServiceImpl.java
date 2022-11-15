@@ -2,6 +2,7 @@ package com.nttdata.project.service;
 
 import com.nttdata.project.model.document.Account;
 import com.nttdata.project.model.repository.AccountRepository;
+import com.nttdata.project.model.request.AccountRequest;
 import com.nttdata.project.model.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,18 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Mono<Boolean> existsById(String id) {
         return accountRepository.existsById(id);
+    }
+
+    @Override
+    public Mono<Void> deleteById(String id) {
+        return accountRepository.deleteById(id);
+    }
+
+    @Override
+    public Mono<Account> update(String id, AccountRequest request) {
+        if (request.getAccount().getId() == null) {
+            throw new IllegalStateException("cannot save " + request);
+        }
+        return accountRepository.save(request.getAccount());
     }
 }
