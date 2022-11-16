@@ -46,9 +46,15 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Mono<Account> update(String id, AccountRequest request) {
-        if (request.getAccount().getId() == null) {
-            throw new IllegalStateException("cannot save " + request);
-        }
-        return accountRepository.save(request.getAccount());
+        return accountRepository.findById(id)
+                .flatMap(customerDB -> {
+                    request.getAccount().setId(id);
+                    return accountRepository.save(request.getAccount());
+                }).switchIfEmpty(Mono.defer(() -> {
+                            // TODO poner logs
+                            return Mono.error(
+                                    new IllegalStateException("Account does not exist"));
+                        }
+                ));
     }
 }

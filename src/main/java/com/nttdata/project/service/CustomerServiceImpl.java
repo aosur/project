@@ -1,9 +1,7 @@
 package com.nttdata.project.service;
 
-import com.nttdata.project.model.document.Account;
 import com.nttdata.project.model.document.Customer;
 import com.nttdata.project.model.repository.CustomerRepository;
-import com.nttdata.project.model.request.AccountRequest;
 import com.nttdata.project.model.request.CustomerRequest;
 import com.nttdata.project.model.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +46,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Mono<Customer> update(String id, CustomerRequest request) {
-        if (request.getCustomer().getId() == null) {
-            throw new IllegalStateException("cannot save " + request);
-        }
-        return customerRepository.save(request.getCustomer());
+        return customerRepository.findById(id)
+                .flatMap(customerDB -> {
+                    request.getCustomer().setId(id);
+                    return customerRepository.save(request.getCustomer());
+                }).switchIfEmpty(Mono.defer(() -> {
+                    // TODO poner logs
+                    return Mono.error(
+                            new IllegalStateException("Customer does not exist"));
+                        }
+                ));
     }
 
 }
